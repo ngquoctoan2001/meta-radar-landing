@@ -8,7 +8,9 @@ meta-radar-landing/
 ├─ public/                  ← thư mục đem đi deploy
 │  ├─ index.html            ← trang chính — đã chốt Mẫu 1 · RADAR, nhúng sẵn mã QR
 │  ├─ og.jpg                ← ảnh xem trước khi share link lên Facebook / Zalo (1200×630)
-│  └─ apple-touch-icon.png  ← icon khi "Thêm vào màn hình chính" trên iPhone
+│  ├─ apple-touch-icon.png  ← icon khi "Thêm vào màn hình chính" trên iPhone
+│  ├─ qr.jpg                ← file tải về khi bấm "Tải mã QR"
+│  └─ _headers              ← báo Cloudflare trả qr.jpg dạng tải về (không mở ảnh)
 ├─ mau/                     ← 5 mẫu ban đầu (bản nháp trước khi chốt, không deploy — xoá được)
 │  ├─ mau-1-radar.html          Link-in-bio gọn nhất · Lee Sin Nộ Long Cước
 │  ├─ mau-2-anh-bia.html        Giống ảnh bìa kênh · 3 lát Lee Sin / Yasuo / Yone
@@ -24,9 +26,9 @@ meta-radar-landing/
 
 ## 2. Mã QR ủng hộ
 
-- Ảnh VietQR (MB · NGUYEN QUOC TOAN) đã **nhúng thẳng trong `index.html`** — không cần file ảnh riêng.
-- Nút **Tải mã QR**: máy tính / Android tải về file `meta-radar-qr.jpg`; iPhone mở bảng chia sẻ (chọn "Lưu hình ảnh"); trong app TikTok / Facebook thì mở ảnh to để nhấn giữ lưu. Bấm vào ảnh QR cũng mở ảnh to.
-- Đổi QR khác: gửi ảnh mới cho Claude nhúng lại.
+- Ảnh VietQR (MB · NGUYEN QUOC TOAN) hiển thị trên trang được **nhúng thẳng trong `index.html`**.
+- Nút **Tải mã QR** là link tải thẳng file `qr.jpg` (lưu về máy với tên `meta-radar-qr.jpg`), không có popup.
+- Đổi QR khác: thay cả ảnh nhúng trong `index.html` lẫn file `qr.jpg` (gửi ảnh mới cho Claude làm cho nhanh).
 - (Tuỳ chọn) Muốn hiện thêm dòng ngân hàng + số tài khoản kèm nút **Chép**: điền `window.UNG_HO` ở cuối file. Để trống thì tự ẩn.
 
 Mọi chỗ nên sửa trong file đều có dấu ✏️.
