@@ -1,6 +1,6 @@
 # META RADAR · Landing page
 
-Trang giới thiệu kênh **META RADAR – Tốc Chiến** (link gắn ở bio TikTok).
+Trang giới thiệu kênh **META RADAR – Tốc Chiến** (link gắn ở bio TikTok) — đang chạy tại **https://meta-radar-landing.pages.dev**
 Mỗi trang là **1 file HTML duy nhất** — CSS, JS và ảnh nền đều nhúng sẵn bên trong, chỉ tải thêm font từ Google Fonts.
 
 ```
@@ -55,7 +55,7 @@ Không muốn dùng Git: ở bước 1 chọn **Upload assets** rồi kéo thả
 
 ## 5. Sau khi có link
 
-- **Ảnh xem trước khi share link**: trong `<head>` của `index.html`, bỏ dấu comment 3 dòng `og:url` / `og:image` / `canonical` và thay `TEN-MIEN` bằng tên miền thật (vd `meta-radar-links.pages.dev`). Kiểm tra lại bằng [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/).
+- **Ảnh xem trước khi share link**: đã gắn sẵn cho `https://meta-radar-landing.pages.dev` (thẻ `og:*` + `canonical` trong `<head>`). Đổi sang tên miền riêng thì sửa các link đó. Facebook còn hiện ảnh cũ thì vào [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) bấm **Scrape Again**.
 - **Đếm lượt vào**: trong project Pages → **Metrics** → bật **Web Analytics** (miễn phí, không cần cookie) để biết bao nhiêu người bấm từ bio TikTok.
 - **Gắn vào TikTok**: Hồ sơ → Sửa hồ sơ → **Trang web**. Nếu chưa thấy ô này thì tài khoản chưa đủ điều kiện (TikTok thường yêu cầu tài khoản Doanh nghiệp hoặc đủ số follower).
 - **Tên miền riêng**: project Pages → **Custom domains** → thêm tên miền.
