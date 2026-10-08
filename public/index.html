@@ -684,6 +684,37 @@ b, strong { font-weight: 700; color: var(--text); }
   font-size: 12px; line-height: 1.5; color: var(--text-3);
 }
 .sp-note svg { flex: none; width: 15px; height: 15px; margin-top: 2px; }
+
+/* ---------- gợi ý trong TikTok: chỉ lên nút ⋯ để mở trang bằng trình duyệt ---------- */
+.tt-tip {
+  position: fixed; z-index: 60;
+  top: calc(12px + env(safe-area-inset-top)); right: 10px;
+  display: flex; align-items: center; gap: 2px;
+  padding: 7px 3px 7px 12px; border-radius: 14px;
+  background: linear-gradient(100deg, #ff7a45, #ee4d2d); color: #fff;
+  box-shadow: 0 8px 22px rgb(var(--shopee-rgb) / 0.4);
+  animation: tt-in 0.4s cubic-bezier(.2, .9, .3, 1.2) 0.6s both, tt-glow 2.2s ease-in-out 1.2s infinite;
+}
+.tt-tip[hidden] { display: none; }
+/* đuôi bóng thoại chĩa lên nút ⋯ */
+.tt-tip::before {
+  content: ''; position: absolute; top: -6px; right: 22px;
+  width: 14px; height: 14px; border-radius: 3px; transform: rotate(45deg);
+  background: #f4603a;
+}
+.tt-tip p { position: relative; display: grid; gap: 3px; }
+.tt-tip b { display: flex; align-items: center; gap: 4px; color: #fff; font: 800 14px/1 var(--f-hud); letter-spacing: 0.08em; text-transform: uppercase; }
+.tt-tip b svg { width: 15px; height: 15px; flex: none; animation: tt-nudge 1.1s ease-in-out infinite; }
+.tt-tip b .tt-dots { width: 20px; height: 20px; margin: 0 1px; animation: none; }
+.tt-tip p > span { font: 600 12.5px/1.1 var(--f-body); }
+.tt-tip-x { position: relative; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; color: rgba(255, 255, 255, 0.85); }
+.tt-tip-x svg { width: 14px; height: 14px; }
+@keyframes tt-in { from { opacity: 0; transform: translateY(-12px); } }
+@keyframes tt-glow { 50% { box-shadow: 0 8px 22px rgb(var(--shopee-rgb) / 0.4), 0 0 0 6px rgb(var(--shopee-rgb) / 0.22); } }
+@keyframes tt-nudge { 50% { transform: translate(2px, -3px); } }
+/* nút chia sẻ nằm cùng góc → tạm ẩn khi đang hiện gợi ý */
+body.has-tt-tip .top .icon-btn { visibility: hidden; }
+body.has-tt-tip .top .skin-tag { max-width: calc(100% - 172px); }
 @media (max-width: 359px) {
   .sp { grid-template-columns: 72px minmax(0, 1fr); gap: 11px; }
   .sp-img { width: 72px; height: 72px; }
@@ -808,7 +839,7 @@ b, strong { font-weight: 700; color: var(--text); }
       </a>
       <a class="lnk lnk--shopee" href="#build-do">
         <span class="lnk-ico"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2A2 2 0 0 1 15.8 21H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 10.5V7a3 3 0 0 1 6 0v3.5"/></svg></span>
-        <span class="lnk-txt"><b>Build đồ cho điện thoại</b><small>Sò lạnh, pin dự phòng · mua là ủng hộ kênh</small></span>
+        <span class="lnk-txt"><b>Build đồ cho điện thoại</b><small>Sò lạnh, pin dự phòng · ủng hộ kênh</small></span>
         <span class="lnk-go"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M5.5 12.5 12 19l6.5-6.5"/></svg></span>
       </a>
       <div class="lnk lnk--zalo">
@@ -933,6 +964,12 @@ b, strong { font-weight: 700; color: var(--text); }
   </footer>
 </div>
 
+<!-- Chỉ hiện khi mở trong TikTok: chỉ lên nút ⋯ để xem trang bằng trình duyệt (link Shopee mở mượt hơn) -->
+<div class="tt-tip" hidden>
+  <p><b>Bấm<svg class="tt-dots" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><circle cx="4.5" cy="12" r="2.4"/><circle cx="12" cy="12" r="2.4"/><circle cx="19.5" cy="12" r="2.4"/></svg><span class="sr-only">dấu ba chấm</span><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></b><span>Mở bằng trình duyệt</span></p>
+  <button class="tt-tip-x" type="button" data-tt-tip-close aria-label="Ẩn gợi ý"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+</div>
+
 <div class="toast" role="status" aria-live="polite"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span></span></div>
 <script>
   /* ✏️ THÔNG TIN ỦNG HỘ — điền vào là tự hiện dưới mã QR (để trống thì tự ẩn) */
@@ -1055,6 +1092,22 @@ b, strong { font-weight: 700; color: var(--text); }
     );
     box.hidden = false;
   });
+
+  // Mở trong TikTok: gợi ý nhỏ chỉ lên nút ⋯ để xem trang bằng trình duyệt; bấm × là ẩn hẳn (nhớ trên máy)
+  const tip = $('.tt-tip');
+  if (app === 'TikTok' && tip) {
+    let off = false;
+    try { off = localStorage.getItem('an-goi-y-tiktok') === '1'; } catch { /* không lưu được thì vẫn hiện */ }
+    if (!off) {
+      tip.hidden = false;
+      document.body.classList.add('has-tt-tip');
+      $('[data-tt-tip-close]', tip).addEventListener('click', () => {
+        tip.hidden = true;
+        document.body.classList.remove('has-tt-tip');
+        try { localStorage.setItem('an-goi-y-tiktok', '1'); } catch { /* bỏ qua */ }
+      });
+    }
+  }
 
   // Mục Build đồ: "Xem tất cả" mở các món còn lại, "Thu gọn" đóng lại và giữ nút đứng yên dưới tay
   $$('[data-sp-toggle]').forEach((btn) => {
