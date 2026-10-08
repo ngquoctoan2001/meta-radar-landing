@@ -684,51 +684,6 @@ b, strong { font-weight: 700; color: var(--text); }
   font-size: 12px; line-height: 1.5; color: var(--text-3);
 }
 .sp-note svg { flex: none; width: 15px; height: 15px; margin-top: 2px; }
-
-/* TikTok chặn mở Shopee: bảng hướng dẫn "⋯ → Mở bằng trình duyệt" + chép link */
-.sheet {
-  position: fixed; inset: 0; z-index: 80;
-  display: grid; align-items: end; justify-items: center;
-  padding: 0 12px calc(12px + env(safe-area-inset-bottom));
-  background: rgba(3, 2, 8, 0.62);
-  -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
-  animation: sheet-fade 0.2s ease both;
-}
-.sheet[hidden] { display: none; }
-.sheet-panel {
-  width: min(100%, 440px); display: grid; gap: 12px;
-  padding: 20px 18px 14px; border-radius: 20px;
-  background: linear-gradient(160deg, rgba(34, 27, 70, 0.98), rgba(12, 10, 30, 0.98));
-  border: 1px solid rgb(var(--shopee-rgb) / 0.45);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-  animation: sheet-up 0.32s cubic-bezier(.2, .9, .3, 1.1) both;
-}
-.sheet-panel h3 { font: 800 19px/1.25 var(--f-body); }
-.sheet-panel p { font-size: 14.5px; line-height: 1.55; color: var(--text-2); }
-.sheet-btn {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 48px; border-radius: 12px;
-  background: linear-gradient(100deg, #ff6a3d, #ee4d2d); color: #fff;
-  font: 700 14px/1 var(--f-hud); letter-spacing: 0.1em; text-transform: uppercase;
-  box-shadow: 0 8px 22px rgb(var(--shopee-rgb) / 0.3);
-}
-.sheet-btn svg { width: 18px; height: 18px; flex: none; }
-.sheet-btn:active { transform: scale(0.98); }
-.sheet-close { min-height: 40px; font: 600 14px/1 var(--f-hud); letter-spacing: 0.08em; color: var(--text-3); }
-/* mũi tên chỉ lên nút ⋯ của TikTok (nằm ngay trên góc phải trang) */
-.sheet-point {
-  position: fixed; top: calc(8px + env(safe-area-inset-top)); right: 12px;
-  display: flex; align-items: center; gap: 6px;
-  padding: 7px 11px 7px 12px; border-radius: 999px;
-  background: var(--shopee); color: #fff;
-  font: 700 13px/1 var(--f-hud); letter-spacing: 0.08em; text-transform: uppercase;
-  box-shadow: 0 6px 20px rgb(var(--shopee-rgb) / 0.45);
-  animation: sheet-nudge 1.1s ease-in-out infinite;
-}
-.sheet-point svg { width: 18px; height: 18px; flex: none; }
-@keyframes sheet-fade { from { opacity: 0; } }
-@keyframes sheet-up { from { opacity: 0; transform: translateY(24px); } }
-@keyframes sheet-nudge { 50% { transform: translate(3px, -4px); } }
 @media (max-width: 359px) {
   .sp { grid-template-columns: 72px minmax(0, 1fr); gap: 11px; }
   .sp-img { width: 72px; height: 72px; }
@@ -978,17 +933,6 @@ b, strong { font-weight: 700; color: var(--text); }
   </footer>
 </div>
 
-<!-- Chỉ hiện trong TikTok khi bấm món Shopee mà không tự mở được trình duyệt ngoài -->
-<div class="sheet" id="mo-ngoai" hidden>
-  <div class="sheet-point" aria-hidden="true">Bấm ⋯<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8.5 7H17v8.5"/></svg></div>
-  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="mo-ngoai-tieu-de">
-    <h3 id="mo-ngoai-tieu-de">TikTok không cho mở Shopee</h3>
-    <p>Bấm <b>⋯</b> góc trên → <b>Mở bằng trình duyệt</b>, rồi bấm lại món này là vào Shopee.</p>
-    <button class="sheet-btn" type="button" data-copy="" data-copy-msg="Đã chép link — dán vào Safari hoặc Chrome là mở được"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="11" height="11" rx="2.5"/><path d="M15.5 8.5V6.5A2 2 0 0 0 13.5 4.5h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2"/></svg>Chép link món này</button>
-    <button class="sheet-close" type="button" data-sheet-close>Đóng</button>
-  </div>
-</div>
-
 <div class="toast" role="status" aria-live="polite"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><span></span></div>
 <script>
   /* ✏️ THÔNG TIN ỦNG HỘ — điền vào là tự hiện dưới mã QR (để trống thì tự ẩn) */
@@ -1111,59 +1055,6 @@ b, strong { font-weight: 700; color: var(--text); }
     );
     box.hidden = false;
   });
-
-  // TikTok chặn mở link Shopee ngay trong app (hiện trang "Mở liên kết này trong trình duyệt của bạn").
-  // Bấm món Shopee trong TikTok: thử chuyển sang trình duyệt ngoài (iPhone: x-safari-https://, Android: intent://);
-  // nếu ~1,5 giây sau vẫn còn ở trang thì hiện hướng dẫn "⋯ → Mở bằng trình duyệt" + nút chép link.
-  const sheet = $('#mo-ngoai');
-  if (app === 'TikTok' && sheet) {
-    const isIOS = /iPhone|iPad|iPod/i.test(ua) || (/Macintosh/i.test(ua) && navigator.maxTouchPoints > 1);
-    const isAndroid = /Android/i.test(ua);
-    const sheetCopy = $('[data-copy]', sheet);
-    let lastFocus = null;
-    const closeSheet = () => {
-      sheet.hidden = true;
-      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
-    };
-    const openSheet = (url) => {
-      sheetCopy.dataset.copy = url;
-      lastFocus = document.activeElement;
-      sheet.hidden = false;
-      sheetCopy.focus({ preventScroll: true });
-    };
-    sheet.addEventListener('click', (e) => {
-      if (e.target === sheet || e.target.closest('[data-sheet-close]')) closeSheet();
-    });
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !sheet.hidden) closeSheet();
-    });
-
-    document.addEventListener('click', (e) => {
-      const a = e.target.closest('a[href*="shopee.vn"]');
-      if (!a) return;
-      e.preventDefault();
-      const url = a.href;
-      const out = isIOS ? 'x-safari-' + url
-        : isAndroid ? 'intent://' + url.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end'
-        : '';
-      // rời trang (đã sang Safari/Chrome/app Shopee) thì thôi, không hiện hướng dẫn
-      let left = false;
-      const leave = () => { left = true; };
-      const onVis = () => { if (document.hidden) left = true; };
-      window.addEventListener('pagehide', leave);
-      window.addEventListener('blur', leave);
-      document.addEventListener('visibilitychange', onVis);
-      if (out) {
-        try { location.href = out; } catch { /* scheme bị chặn → hiện hướng dẫn */ }
-      }
-      setTimeout(() => {
-        window.removeEventListener('pagehide', leave);
-        window.removeEventListener('blur', leave);
-        document.removeEventListener('visibilitychange', onVis);
-        if (!left) openSheet(url);
-      }, out ? 1500 : 0);
-    });
-  }
 
   // Mục Build đồ: "Xem tất cả" mở các món còn lại, "Thu gọn" đóng lại và giữ nút đứng yên dưới tay
   $$('[data-sp-toggle]').forEach((btn) => {
